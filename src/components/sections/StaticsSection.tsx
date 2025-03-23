@@ -28,8 +28,8 @@ const StatisticsSection = ({ className }: Props) => {
     <section className={cn("py-20 bg-shortly-gray/10", className)}>
       <div className="max-w-7xl mx-auto px-6 lg:px-24">
         {/* Section Header */}
-        <div className="text-center mb-16 max-w-xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-shortly-dark-voilet mb-5">
+        <div className="text-center max-w-xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-shortly-dark-voilet md:mt-12 mb-4">
             Advanced Statistics
           </h2>
           <p className="text-shortly-grayish-voilet text-lg">
@@ -38,7 +38,7 @@ const StatisticsSection = ({ className }: Props) => {
         </div>
 
         {/* Cards Container */}
-        <div className="relative mt-24">
+        <div className="relative mt-32">
           {/* Connecting Line */}
           <div className="absolute left-1/2 top-16 bottom-16 w-2 bg-shortly-cyan 
                           md:left-8 md:right-8 md:w-auto md:h-2 md:top-[45%] 

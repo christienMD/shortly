@@ -47,32 +47,28 @@ const ShortenerForm = ({ className }: Props) => {
     try {
       setIsLoading(true);
       
-      // simulatin a successful response for just testing
-      await new Promise(resolve => setTimeout(resolve, 800));
+      const response = await fetch(`https://api.shrtco.de/v2/shorten?url=${encodeURIComponent(values.url)}`);
+      const data = await response.json();
       
-      const mockResponse = {
-        ok: true,
-        result: {
-          original_link: values.url,
-          short_link: `shrtlnk.dev/${Math.random().toString(36).substring(2, 8)}`
-        }
-      };
-      
-      if (mockResponse.ok) {
+      if (data.ok) {
         setShortenedLinks(prev => [
           {
-            original: mockResponse.result.original_link,
-            shortened: mockResponse.result.short_link,
+            original: data.result.original_link,
+            shortened: data.result.short_link,
             copied: false
           },
           ...prev
         ]);
         form.reset();
       } else {
-        throw new Error('Failed to shorten link');
+        throw new Error(data.error || 'Failed to shorten link');
       }
     } catch (error) {
       console.error('Error shortening URL:', error);
+      form.setError('url', { 
+        type: 'manual',
+        message: error instanceof Error ? error.message : 'Failed to shorten link'
+      });
     } finally {
       setIsLoading(false);
     }

@@ -1,7 +1,8 @@
+import FeaturesPage from "@/components/pages/FeaturesPage"
 
 const Features = () => {
   return (
-    <div>Features</div>
+    <FeaturesPage />
   )
 }
 

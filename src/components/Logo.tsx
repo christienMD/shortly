@@ -8,7 +8,9 @@ interface LogoProps {
 const Logo = ({ className }: LogoProps) => {
   return (
     <Link to="/" className={cn("inline-block", className)}>
-      <h1 className="text-[28px] font-bold text-very-dark-violet">Shortly</h1>
+      <h1 className="text-3xl font-extrabold text-shortly-voilet">
+        Shortly
+        </h1>
     </Link>
   );
 };

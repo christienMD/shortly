@@ -32,9 +32,9 @@ const NavLinks = ({ className, mobile = false }: NavLinksProps) => {
               className={cn(
                 "font-medium transition-colors",
                 mobile 
-                  ? "text-white text-lg font-bold hover:text-gray" 
-                  : "text-grayish-violet hover:text-very-dark-blue",
-                isActive && (mobile ? "text-gray" : "text-very-dark-blue"),
+                  ? "text-white text-xl font-bold hover:text-gray" 
+                  : "text-shortly-grayish-voilet hover:text-very-dark-blue",
+                isActive && (mobile ? "text-shortly-gray" : "text-very-dark-blue"),
               )}
             >
               {link.label}

@@ -113,6 +113,9 @@
 @theme {
   --color-shortly-cyan: #2ACFCF;
   --color-shortly-voilet: #3B3054;
+  --color-shortly-gray: #BFBFBF;
+  --color-shortly-grayish-voilet: #9E9AA7;
+  --color-shortly-dark-voilet: #232127;
 }
 
 @layer base {

@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
-import cn from "classnames";
+import { cn } from "@/lib/utils";
+
 import Logo from "../Logo";
 
 interface FooterProps {
   className?: string;
 }
 
-// Footer links data structure
 interface FooterSection {
   title: string;
   links: {
@@ -16,7 +16,6 @@ interface FooterSection {
 }
 
 const Footer = ({ className }: FooterProps) => {
-  // Define footer sections and links
   const footerLinks: FooterSection[] = [
     {
       title: "Features",
@@ -45,7 +44,6 @@ const Footer = ({ className }: FooterProps) => {
     },
   ];
 
-  // Social media links
   const socialLinks = [
     { icon: "/images/icon-facebook.svg", href: "https://facebook.com", label: "Facebook" },
     { icon: "/images/icon-twitter.svg", href: "https://twitter.com", label: "Twitter" },
@@ -54,7 +52,7 @@ const Footer = ({ className }: FooterProps) => {
   ];
 
   return (
-    <footer className={cn("bg-[#232127] py-16", className)}>
+    <footer className={cn("bg-[#232127] py-16 w-full", className)}>
       <div className="section-wrapper">
         <div className="flex flex-col md:flex-row">
           {/* Logo */}

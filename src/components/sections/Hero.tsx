@@ -1,12 +1,13 @@
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
-interface HeroProps {
+interface Props {
   className?: string;
 }
 
-const Hero = ({ className }: HeroProps) => {
+const Hero = ({ className }: Props) => {
   return (
-    <section className={className}>
+    <section className={cn("section-wrapper", className)}>
       <div className="flex flex-col-reverse md:flex-row md:items-center md:justify-between py-8 md:py-16 w-full">
         {/* Text Content */}
         <div className="md:w-1/2 mt-10 md:mt-0 text-center md:text-left">
@@ -28,7 +29,12 @@ const Hero = ({ className }: HeroProps) => {
 
         {/* Hero Image */}
         <div className="md:w-1/2 relative p-0">
-          <div className="relative md:absolute md:right-[-15%] lg:right-[-25%] md:top-[-10%] lg:top-[-50%] w-full h-full">
+          <div className="
+            w-[100%] mx-auto sm:w-[90%] 
+            md:w-[125%] md:absolute md:right-[-30%] md:top-[-150px]
+            lg:w-[100%] lg:right-[-20%] lg:top-[-160px]
+            xl:w-[90%] xl:right-[-20%] xl:top-[-160px]
+          ">
             <img
               src="/images/illustration-working.svg"
               alt="Person working at computer"

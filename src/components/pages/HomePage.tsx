@@ -3,7 +3,7 @@ import Hero from "../sections/Hero";
 
 const HomePage = () => {
   return (
-    <div>
+    <div className="overflow-hidden">
       <Hero />
       <CtaSection />
     </div>

@@ -128,6 +128,6 @@
   }
 
   .section-wrapper{
-    @apply max-w-7xl mx-auto px-6 lg:p-0
+    @apply max-w-7xl mx-auto px-6 
   }
 }

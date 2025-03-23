@@ -9,18 +9,16 @@ import Navbar from "@/components/sections/Navbar";
 import Footer from "@/components/sections/Footer";
 
 const RootLayout = () => {
-  return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <main className="flex-grow w-full">
-        <div className="max-w-7xl mx-auto px-6 lg:p-0">
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Navbar />
+        <main className="flex-grow w-full">
           <Outlet />
-        </div>
-      </main>
-      <Footer />
-    </div>
-  );
-};
+        </main>
+        <Footer />
+      </div>
+    );
+  };
 
 const routes = createBrowserRouter([
   {

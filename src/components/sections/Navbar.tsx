@@ -23,7 +23,7 @@ const Navbar = ({ className }: NavbarProps) => {
 
   return (
     <header className={cn("w-full py-6 ", className)}>
-      <div className="max-w-7xl mx-auto px-6 lg:p-0">
+      <div className="section-wrapper">
         <nav className="flex justify-between items-center">
           {/* Logo */}
           <Logo />

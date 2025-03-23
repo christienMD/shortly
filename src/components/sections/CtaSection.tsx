@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import cn from 'classnames';
+import { cn } from '@/lib/utils';
 
 interface CtaSectionProps {
   className?: string;
@@ -9,7 +9,7 @@ const CtaSection = ({ className }: CtaSectionProps) => {
   return (
     <section 
       className={cn(
-        "py-14 md:py-16 bg-shortly-voilet relative overflow-hidden", 
+        "py-14 md:py-16 bg-shortly-voilet relative overflow-hidden mt-24 w-full ", 
         className
       )}
       style={{

@@ -55,7 +55,7 @@ const Footer = ({ className }: FooterProps) => {
 
   return (
     <footer className={cn("bg-[#232127] py-16", className)}>
-      <div className="max-w-7xl mx-auto px-6 lg:p-0">
+      <div className="section-wrapper">
         <div className="flex flex-col md:flex-row">
           {/* Logo */}
           <div className="mb-12 md:mb-0 md:w-1/3 flex justify-center md:justify-start">

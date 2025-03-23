@@ -6,6 +6,7 @@ import PricingPage from "@/pages/Pricing";
 import ResourcesPage from "@/pages/Resources";
 
 import Navbar from "@/components/sections/Navbar";
+import Footer from "@/components/sections/Footer";
 
 const RootLayout = () => {
   return (
@@ -16,6 +17,7 @@ const RootLayout = () => {
           <Outlet />
         </div>
       </main>
+      <Footer />
     </div>
   );
 };

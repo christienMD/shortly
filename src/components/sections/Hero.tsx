@@ -27,8 +27,8 @@ const Hero = ({ className }: HeroProps) => {
         </div>
 
         {/* Hero Image */}
-        <div className="md:w-1/2 relative">
-          <div className="relative md:absolute md:right-[-15%] lg:right-[-25%] md:top-[-10%] lg:top-[-15%] w-full h-full">
+        <div className="md:w-1/2 relative p-0">
+          <div className="relative md:absolute md:right-[-15%] lg:right-[-25%] md:top-[-10%] lg:top-[-50%] w-full h-full">
             <img
               src="/images/illustration-working.svg"
               alt="Person working at computer"

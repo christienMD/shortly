@@ -33,7 +33,7 @@ const Hero = ({ className }: Props) => {
             w-[100%] mx-auto sm:w-[90%] 
             md:w-[125%] md:absolute md:right-[-30%] md:top-[-150px]
             lg:w-[100%] lg:right-[-20%] lg:top-[-160px]
-            xl:w-[90%] xl:right-[-20%] xl:top-[-160px]
+            xl:w-[100%] xl:right-[-30%] xl:top-[-170px]
           ">
             <img
               src="/images/illustration-working.svg"

@@ -11,7 +11,7 @@ const Hero = ({ className }: Props) => {
       <div className="flex flex-col-reverse md:flex-row md:items-center md:justify-between gap-8 py-6 md:py-16 w-full">
         {/* Text Content */}
         <div className="md:w-1/2 md:mt-0 text-center md:text-left">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-shortly-dark-voilet leading-tight">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold md:font-extrabold text-shortly-dark-voilet leading-tight">
             More than just shorter links
           </h1>
           <p className="text-shortly-grayish-voilet my-4 md:my-6 md:text-lg max-w-md mx-auto md:mx-0">

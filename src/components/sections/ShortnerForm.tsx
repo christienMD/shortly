@@ -1,12 +1,10 @@
-"use client";
-
-import { useState } from 'react';
+import { z } from "zod";
+import { toast } from "sonner";
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import cn from 'classnames';
 
-// UI Components
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -14,11 +12,10 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from '@/components/ui/input';
-import { urlSchema } from '@/schemas/urlFormSchema';
-import { z } from 'zod';
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 
-// Schema
+import { urlSchema } from "@/schemas/urlFormSchema";
 
 interface ShortenedLink {
   original: string;
@@ -30,7 +27,7 @@ interface Props {
   className?: string;
 }
 
-type FormData = z.infer<typeof urlSchema>
+type FormData = z.infer<typeof urlSchema>;
 
 const ShortenerForm = ({ className }: Props) => {
   const [shortenedLinks, setShortenedLinks] = useState<ShortenedLink[]>([]);
@@ -39,36 +36,48 @@ const ShortenerForm = ({ className }: Props) => {
   const form = useForm<FormData>({
     resolver: zodResolver(urlSchema),
     defaultValues: {
-      url: '',
+      url: "",
     },
   });
 
   const onSubmit = async (values: FormData) => {
     try {
       setIsLoading(true);
-      
-      const response = await fetch(`https://api.shrtco.de/v2/shorten?url=${encodeURIComponent(values.url)}`);
-      const data = await response.json();
-      
-      if (data.ok) {
-        setShortenedLinks(prev => [
-          {
-            original: data.result.original_link,
-            shortened: data.result.short_link,
-            copied: false
-          },
-          ...prev
-        ]);
-        form.reset();
-      } else {
-        throw new Error(data.error || 'Failed to shorten link');
+
+      // TinyURL API
+      const response = await fetch(
+        `https://tinyurl.com/api-create.php?url=${encodeURIComponent(
+          values.url
+        )}`
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to shorten URL");
       }
+
+      const shortUrl = await response.text();
+
+      setShortenedLinks((prev) => [
+        {
+          original: values.url,
+          shortened: shortUrl,
+          copied: false,
+        },
+        ...prev,
+      ]);
+
+      form.reset();
+      toast.success("URL shortened successfully!");
     } catch (error) {
-      console.error('Error shortening URL:', error);
-      form.setError('url', { 
-        type: 'manual',
-        message: error instanceof Error ? error.message : 'Failed to shorten link'
+      console.error("Error shortening URL:", error);
+      form.setError("url", {
+        type: "manual",
+        message:
+          error instanceof Error ? error.message : "Failed to shorten link",
       });
+      toast.error(
+        error instanceof Error ? error.message : "Failed to shorten link"
+      );
     } finally {
       setIsLoading(false);
     }
@@ -76,21 +85,23 @@ const ShortenerForm = ({ className }: Props) => {
 
   const handleCopy = (index: number) => {
     navigator.clipboard.writeText(shortenedLinks[index].shortened);
-    
+
     // Update the copied state
-    setShortenedLinks(prev => 
+    setShortenedLinks((prev) =>
       prev.map((link, i) => ({
         ...link,
-        copied: i === index ? true : link.copied
+        copied: i === index ? true : link.copied,
       }))
     );
-    
+
+    toast.message("Link copied to clipboard!!");
+
     // Reset copied state after 3 seconds
     setTimeout(() => {
-      setShortenedLinks(prev => 
+      setShortenedLinks((prev) =>
         prev.map((link, i) => ({
           ...link,
-          copied: i === index ? false : link.copied
+          copied: i === index ? false : link.copied,
         }))
       );
     }, 3000);
@@ -100,7 +111,7 @@ const ShortenerForm = ({ className }: Props) => {
     <section className={cn(className)}>
       <div className="max-w-7xl mx-auto px-6 lg:px-24 relative -mb-20">
         {/* Form Container */}
-        <div 
+        <div
           className="bg-shortly-voilet rounded-lg p-6 md:p-12 relative overflow-hidden"
           style={{
             backgroundImage: "url('/images/bg-shorten-desktop.svg')",
@@ -109,7 +120,10 @@ const ShortenerForm = ({ className }: Props) => {
           }}
         >
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col md:flex-row gap-4 md:gap-6">
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="flex flex-col md:flex-row gap-4 md:gap-6"
+            >
               <FormField
                 control={form.control}
                 name="url"
@@ -119,7 +133,11 @@ const ShortenerForm = ({ className }: Props) => {
                       <Input
                         {...field}
                         placeholder="Shorten a link here..."
-                        className={cn("h-12 md:h-14 bg-white px-5 rounded-md text-base focus-visible:ring-0 focus-visible:ring-offset-0" , form.formState.errors.url && "placeholder:text-red-500")}
+                        className={cn(
+                          "h-12 md:h-14 bg-white px-5 rounded-md text-base focus-visible:ring-0 focus-visible:ring-offset-0",
+                          form.formState.errors.url &&
+                            "placeholder:text-red-500"
+                        )}
                         disabled={isLoading}
                       />
                     </FormControl>
@@ -127,24 +145,24 @@ const ShortenerForm = ({ className }: Props) => {
                   </FormItem>
                 )}
               />
-              <Button 
+              <Button
                 type="submit"
                 variant="cyanPrimary"
                 className="h-12 md:h-14 md:w-32 shrink-0 rounded-md font-bold text-base"
                 disabled={isLoading}
               >
-                {isLoading ? 'Shortening...' : 'Shorten It!'}
+                {isLoading ? "Shortening..." : "Shorten It!"}
               </Button>
             </form>
           </Form>
         </div>
-        
+
         {/* Results List */}
         {shortenedLinks.length > 0 && (
           <div className="mt-16 space-y-4">
             {shortenedLinks.map((link, index) => (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className="bg-white rounded-md flex flex-col md:flex-row md:items-center md:justify-between overflow-hidden"
               >
                 <p className="text-shortly-dark-voilet truncate md:flex-1 p-4 pb-3 md:pb-4 border-b md:border-0 border-shortly-gray/30">
@@ -154,12 +172,12 @@ const ShortenerForm = ({ className }: Props) => {
                   <span className="text-shortly-cyan font-medium">
                     {link.shortened}
                   </span>
-                  <Button 
+                  <Button
                     onClick={() => handleCopy(index)}
                     variant={link.copied ? "secondary" : "cyanPrimary"}
                     className="md:w-24 rounded-md text-sm font-bold"
                   >
-                    {link.copied ? 'Copied!' : 'Copy'}
+                    {link.copied ? "Copied!" : "Copy"}
                   </Button>
                 </div>
               </div>

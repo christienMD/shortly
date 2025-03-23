@@ -20,7 +20,7 @@ const Hero = ({ className }: Props) => {
           </p>
           <Button
             variant="cyanPrimary"
-            size="lg"
+            size="xl"
             className="font-bold rounded-full text-lg py-5"
           >
             Get Started

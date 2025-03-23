@@ -1,7 +1,9 @@
 
 const FeaturesPage = () => {
   return (
-    <div>FeaturesPage</div>
+    <div className="section-wrapper">
+        FeaturesPage
+    </div>
   )
 }
 

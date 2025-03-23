@@ -110,6 +110,11 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+@theme {
+  --color-shortly-cyan: #2ACFCF;
+  --color-shortly-voilet: #3B3054;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

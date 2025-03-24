@@ -33,7 +33,7 @@ const StatisticsSection = ({ className, shortenedLinks, handleCopy }: Props) => 
       <div className="max-w-7xl mx-auto px-6 lg:px-24">
         {/* Results List - now in the Statistics section */}
         {shortenedLinks.length > 0 && (
-          <div className="mb-32 space-y-4">
+          <div className="mb-16 space-y-4">
             {shortenedLinks.map((link, index) => (
               <div
                 key={index}

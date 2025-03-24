@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { toast } from "sonner";
-import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -16,21 +15,18 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
 import { urlSchema } from "@/schemas/urlFormSchema";
-
-interface ShortenedLink {
-  original: string;
-  shortened: string;
-  copied: boolean;
-}
+import { ShortenedLink } from "../pages/HomePage";
+import { useState } from "react";
 
 interface Props {
   className?: string;
+  shortenedLinks: ShortenedLink[];
+  setShortenedLinks: React.Dispatch<React.SetStateAction<ShortenedLink[]>>;
 }
 
 type FormData = z.infer<typeof urlSchema>;
 
-const ShortenerForm = ({ className }: Props) => {
-  const [shortenedLinks, setShortenedLinks] = useState<ShortenedLink[]>([]);
+const ShortenerForm = ({ className, setShortenedLinks }: Props) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<FormData>({
@@ -83,109 +79,57 @@ const ShortenerForm = ({ className }: Props) => {
     }
   };
 
-  const handleCopy = (index: number) => {
-    navigator.clipboard.writeText(shortenedLinks[index].shortened);
-
-    // Update the copied state
-    setShortenedLinks((prev) =>
-      prev.map((link, i) => ({
-        ...link,
-        copied: i === index ? true : link.copied,
-      }))
-    );
-
-    toast.message("Link copied to clipboard!!");
-
-    // Reset copied state after 3 seconds
-    setTimeout(() => {
-      setShortenedLinks((prev) =>
-        prev.map((link, i) => ({
-          ...link,
-          copied: i === index ? false : link.copied,
-        }))
-      );
-    }, 3000);
-  };
-
   return (
-    <section className={cn(className)}>
-      <div className="max-w-7xl mx-auto px-6 lg:px-24 relative -mb-20">
-        {/* Form Container */}
-        <div
-          className="bg-shortly-voilet rounded-lg p-6 md:p-12 relative overflow-hidden"
-          style={{
-            backgroundImage: "url('/images/bg-shorten-desktop.svg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="flex flex-col md:flex-row gap-4 md:gap-6"
+    <div className={cn("max-w-7xl mx-auto px-6 lg:px-24", className)}>
+      {/* Form Container */}
+      <div
+        className="bg-shortly-voilet rounded-lg p-6 md:p-10 relative overflow-hidden"
+        style={{
+          backgroundImage: "url('/images/bg-shorten-desktop.svg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="flex flex-col md:flex-row gap-4 md:gap-6"
+          >
+            <FormField
+              control={form.control}
+              name="url"
+              render={({ field }) => (
+                <FormItem className="flex-1 flex flex-col">
+                  <FormControl>
+                    <Input
+                      {...field}
+                      placeholder="Shorten a link here..."
+                      className={cn(
+                        "h-12 md:h-14 bg-white px-5 rounded-md text-base focus-visible:ring-0 focus-visible:ring-offset-0",
+                        form.formState.errors.url &&
+                          "placeholder:text-red-500"
+                      )}
+                      disabled={isLoading}
+                    />
+                  </FormControl>
+                  <div className="h-2">
+                    <FormMessage className="text-red-500 text-sm italic" />
+                  </div>
+                </FormItem>
+              )}
+            />
+            <Button
+              type="submit"
+              variant="cyanPrimary"
+              className="h-12 md:h-14 md:w-32 shrink-0 rounded-md font-bold text-base"
+              disabled={isLoading}
             >
-              <FormField
-                control={form.control}
-                name="url"
-                render={({ field }) => (
-                  <FormItem className="flex-1 flex flex-col">
-                    <FormControl>
-                      <Input
-                        {...field}
-                        placeholder="Shorten a link here..."
-                        className={cn(
-                          "h-12 md:h-14 bg-white px-5 rounded-md text-base focus-visible:ring-0 focus-visible:ring-offset-0",
-                          form.formState.errors.url &&
-                            "placeholder:text-red-500"
-                        )}
-                        disabled={isLoading}
-                      />
-                    </FormControl>
-                    <FormMessage className="text-red-500 text-sm mt-1 italic" />
-                  </FormItem>
-                )}
-              />
-              <Button
-                type="submit"
-                variant="cyanPrimary"
-                className="h-12 md:h-14 md:w-32 shrink-0 rounded-md font-bold text-base"
-                disabled={isLoading}
-              >
-                {isLoading ? "Shortening..." : "Shorten It!"}
-              </Button>
-            </form>
-          </Form>
-        </div>
-
-        {/* Results List */}
-        {shortenedLinks.length > 0 && (
-          <div className="mt-16 space-y-4">
-            {shortenedLinks.map((link, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-md flex flex-col md:flex-row md:items-center md:justify-between overflow-hidden"
-              >
-                <p className="text-shortly-dark-voilet truncate md:flex-1 p-4 pb-3 md:pb-4 border-b md:border-0 border-shortly-gray/30">
-                  {link.original}
-                </p>
-                <div className="flex flex-col md:flex-row md:items-center gap-3 p-4 pt-3 md:pt-4">
-                  <span className="text-shortly-cyan font-medium">
-                    {link.shortened}
-                  </span>
-                  <Button
-                    onClick={() => handleCopy(index)}
-                    variant={link.copied ? "secondary" : "cyanPrimary"}
-                    className="md:w-24 rounded-md text-sm font-bold"
-                  >
-                    {link.copied ? "Copied!" : "Copy"}
-                  </Button>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+              {isLoading ? "Shortening..." : "Shorten It!"}
+            </Button>
+          </form>
+        </Form>
       </div>
-    </section>
+    </div>
   );
 };
 

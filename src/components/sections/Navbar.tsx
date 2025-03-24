@@ -2,10 +2,8 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import cn from "classnames";
 
-// UI components
 import { Button } from "@/components/ui/button";
 
-// Local components
 import Logo from "../Logo";
 import NavLinks from "../NavLinks";
 import MobileNav from "../MobileNav";
@@ -22,8 +20,8 @@ const Navbar = ({ className }: NavbarProps) => {
   };
 
   return (
-    <header className={cn("w-full py-6 ", className)}>
-      <div className="section-wrapper">
+    <header className={cn("w-full py-6 relative z-50", className)}>
+      <div className="max-w-7xl mx-auto px-6 lg:px-24">
         <nav className="flex justify-between items-center">
           {/* Logo */}
           <Logo />
@@ -55,7 +53,7 @@ const Navbar = ({ className }: NavbarProps) => {
               size="icon"
               aria-label={isMenuOpen ? "Close Menu" : "Open Menu"}
               onClick={toggleMenu}
-              className="text-shortly-grayish-voilet"
+              className="text-shortly-grayish-voilet p-1"
             >
               {isMenuOpen ? (
                 <X className="size-7" />

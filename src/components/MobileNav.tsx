@@ -9,22 +9,21 @@ interface MobileNavProps {
 const MobileNav = ({ className }: MobileNavProps) => {
   return (
     <div className={cn(
-      "md:hidden mt-6 py-8 px-6 bg-shortly-voilet rounded-lg w-full text-center", 
+      "md:hidden absolute left-6 right-6 top-20 py-10 px-6 bg-shortly-voilet rounded-lg text-center z-50",
       className
     )}>
-      <NavLinks className="flex flex-col space-y-6 mb-6" mobile />
+      <NavLinks className="flex flex-col space-y-6" mobile />
       
-      <div className="border-t border-gray-400/40 pt-6 flex flex-col space-y-4 mt-6">
+      <div className="border-t border-gray-500/30 pt-6 flex flex-col space-y-4 mt-6">
         <Button 
           variant="ghost" 
-          className="text-white hover:text-shortly-voilet hover:opacity-75 text-lg w-full rounded-full"
+          className="text-white hover:text-shortly-cyan hover:bg-transparent font-bold text-lg h-12"
         >
           Login
         </Button>
         <Button 
           variant="cyanPrimary"
-          size="lg"
-          className="w-full rounded-full text-lg"
+          className="w-full rounded-full font-bold text-lg h-12"
         >
           Sign Up
         </Button>

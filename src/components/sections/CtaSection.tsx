@@ -1,5 +1,5 @@
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface CtaSectionProps {
   className?: string;
@@ -7,26 +7,38 @@ interface CtaSectionProps {
 
 const CtaSection = ({ className }: CtaSectionProps) => {
   return (
-    <section 
+    <section
       className={cn(
-        "py-14 md:py-16 bg-shortly-voilet relative overflow-hidden mt-24 w-full ", 
+        "py-20 sm:py-16 bg-shortly-voilet relative overflow-hidden",
         className
       )}
-      style={{
-        backgroundImage: `url('/images/bg-boost-desktop.svg')`,
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
     >
-      <div className="section-wrapper text-center relative z-10">
-        <h2 className="text-2xl md:text-4xl font-bold text-white mb-6 md:mb-8">
+      <div
+        className="absolute inset-0 z-0 hidden md:block"
+        style={{
+          backgroundImage: `url('/images/bg-boost-desktop.svg')`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      />
+      <div
+        className="absolute inset-0 z-0 md:hidden"
+        style={{
+          backgroundImage: `url('/images/bg-boost-mobile.svg')`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      />
+      <div className="container mx-auto px-6 text-center relative z-10">
+        <h2 className="text-2xl md:text-4xl font-bold text-white mb-5 md:mb-8">
           Boost your links today
         </h2>
-        <Button 
-          variant="cyanPrimary" 
-          size="xl" 
-          className="text-lg font-bold px-10 py-3 h-auto rounded-full"
+        <Button
+          variant="cyanPrimary"
+          size="xl"
+          className="text-lg font-bold px-12 py-4 h-auto rounded-full"
         >
           Get Started
         </Button>

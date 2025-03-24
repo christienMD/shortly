@@ -30,10 +30,11 @@ const Hero = ({ className }: Props) => {
         {/* Hero Image */}
         <div className="md:w-1/2 relative p-0">
           <div className="
-            w-[100%] mx-auto sm:w-[90%] 
-            md:w-[125%] md:absolute md:right-[-30%] md:top-[-150px]
-            lg:w-[100%] lg:right-[-20%] lg:top-[-160px]
-            xl:w-[100%] xl:right-[-30%] xl:top-[-170px]
+            w-[150%] top-[-200px] mx-auto 
+            sm:w-[90%] 
+            md:w-[125%] md:absolute md:right-[-30%] md:top-[-180px]
+            lg:w-[130%] lg:right-[-30%] lg:top-[-170px]
+            xl:w-[125%] xl:right-[-35%] xl:top-[-190px]
           ">
             <img
               src="/images/illustration-working.svg"
